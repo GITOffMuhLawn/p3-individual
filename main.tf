@@ -29,7 +29,7 @@ resource "aws_iam_instance_profile" "launch-template-role" {
 
 
 resource "aws_subnet" "public" {
-    count = 2
+    count = 3
     vpc_id = aws_vpc.bboys-vpc.id
     cidr_block = cidrsubnet(aws_vpc.bboys-vpc.cidr_block, 2, count.index)
     availability_zone = data.aws_availability_zones.name.names[count.index]
