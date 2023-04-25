@@ -13,7 +13,7 @@ provider "aws" {
 
 
 resource "aws_vpc" "bboys-vpc" {
-    cidr_block = "10.1.0.0/16"
+    cidr_block = "10.1.0.0/24"
     enable_dns_support = "true"
     enable_dns_hostnames = "true"
     tags = {
@@ -29,9 +29,9 @@ resource "aws_iam_instance_profile" "launch-template-role" {
 
 
 resource "aws_subnet" "public" {
-    count = 3
+    count = 2
     vpc_id = aws_vpc.bboys-vpc.id
-    cidr_block = cidrsubnet(aws_vpc.bboys-vpc.cidr_block, 10, count.index)
+    cidr_block = cidrsubnet(aws_vpc.bboys-vpc.cidr_block, 2, count.index)
     availability_zone = data.aws_availability_zones.name.names[count.index]
     map_public_ip_on_launch = true
     enable_resource_name_dns_a_record_on_launch = true
@@ -44,7 +44,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
    count = length(aws_subnet.public)
    vpc_id = aws_vpc.bboys-vpc.id
-    cidr_block = cidrsubnet(aws_vpc.bboys-vpc.cidr_block, 10, count.index + 2)
+    cidr_block = cidrsubnet(aws_vpc.bboys-vpc.cidr_block, 2, count.index + 2)
     availability_zone = aws_subnet.public[count.index].availability_zone
     map_public_ip_on_launch = false
     enable_resource_name_dns_a_record_on_launch = true

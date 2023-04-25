@@ -1,5 +1,8 @@
 resource "aws_iam_server_certificate" "alb-cert" {
-    name = "bboys-alb-cert"
+    name_prefix = "bboys-alb-cert"
     certificate_body = file("certificate.pem")
     private_key = file("key.pem")
+    lifecylce {
+        create_before_destroy = true
+    }
 }

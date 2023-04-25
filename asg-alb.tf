@@ -43,11 +43,7 @@ resource "aws_lb_listener" "bboys-443-listener" {
       type = "forward"
       target_group_arn = aws_lb_target_group.ec2-tg.arn
         }
-        depends_on = [
-          aws_lb.bboys-alb,
-          aws_iam_server_certificate.alb-cert
-        ]
-}
+        }
 
 resource "aws_autoscaling_group" "bboys-asg" {
     name = "BBOYS-ASG"
@@ -67,8 +63,8 @@ vpc_zone_identifier = [for subnet in aws_subnet.private : subnet.id]
 depends_on = [
     aws_lb.bboys-alb,
     aws_launch_template.bboys-ec2-launch-template
-
 ]
+
 }
 
 resource "aws_lb_listener_certificate" "alb-cert" {
@@ -76,3 +72,4 @@ resource "aws_lb_listener_certificate" "alb-cert" {
     certificate_arn = aws_iam_server_certificate.alb-cert.arn
   
 }
+
