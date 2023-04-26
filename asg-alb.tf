@@ -74,6 +74,22 @@ resource "aws_lb_listener_certificate" "alb-cert" {
 }
 
 
+resource "aws_lb_listener" "http-listener" {
+    load_balancer_arn = aws_lb.bboys-alb.arn
+    port = "80"
+    protocol = "HTTP"
+    default_action {
+        type = "redirect"
+        redirect {
+            host = "#{host}"
+            path = "/#{path}"
+            port = "443"
+            protocol = "HTTPS"
+            query = "#{query}"
+            status_code = "HTTP_301"
+        }
+    }
+}
 
 
 
