@@ -20,11 +20,11 @@ resource "aws_lb_target_group" "ec2-tg" {
     vpc_id = aws_vpc.bboys-vpc.id
     health_check {
       enabled = "true"
-      healthy_threshold = 2
-      interval = 5
+      healthy_threshold = 10
+      interval = 10
       port = 80
       protocol = "HTTP"
-      timeout = 10
+      timeout = 11
       unhealthy_threshold = 10
       path = "/"
 
