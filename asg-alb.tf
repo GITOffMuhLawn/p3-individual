@@ -21,11 +21,11 @@ resource "aws_lb_target_group" "ec2-tg" {
     health_check {
       enabled = "true"
       healthy_threshold = 2
-      interval = 30
+      interval = 5
       port = 80
       protocol = "HTTP"
-      timeout = 20
-      unhealthy_threshold = 5
+      timeout = 10
+      unhealthy_threshold = 10
       path = "/"
 
 
@@ -51,7 +51,7 @@ resource "aws_autoscaling_group" "bboys-asg" {
     min_size = 2
     desired_capacity = 2
     health_check_grace_period = 60
-    default_instance_warmup = 60
+    default_instance_warmup = 5
     health_check_type = "ELB"
 vpc_zone_identifier = [for subnet in aws_subnet.private : subnet.id]
     launch_template {
