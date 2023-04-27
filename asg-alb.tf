@@ -24,7 +24,7 @@ resource "aws_lb_target_group" "ec2-tg" {
       interval = 10
       port = 80
       protocol = "HTTP"
-      timeout = 11
+      timeout = 9
       unhealthy_threshold = 10
       path = "/"
 
