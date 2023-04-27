@@ -50,8 +50,8 @@ resource "aws_autoscaling_group" "bboys-asg" {
     max_size = 2
     min_size = 2
     desired_capacity = 2
-    health_check_grace_period = 360
-    default_instance_warmup = 360
+    health_check_grace_period = 120
+    default_instance_warmup = 120
     health_check_type = "ELB"
 vpc_zone_identifier = [for subnet in aws_subnet.private : subnet.id]
     launch_template {
